@@ -1,0 +1,214 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  background: #f1f2f5;
+}
+
+.v-modal {
+  z-index: $z-index-background !important;
+}
+
+.el-loading-mask {
+  z-index: $z-index-loading !important;
+}
+
+.view-wrap {
+  .view-title-wrap {
+    vertical-align: middle;
+    text-align: left;
+    padding-bottom: 16px;
+
+    &.view-mobile {
+      text-align: center !important;
+    }
+
+    .view-title {
+      font-family: $font-full;
+      font-size: 23px;
+      font-weight: 300;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.74;
+      letter-spacing: normal;
+      color: #323232;
+    }
+
+    .view-icon {
+      padding-left: 17px;
+
+      i {
+        font-size: 22px;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadeFromLeft {
+  from {
+    opacity: 0;
+    transform: translate(50px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fadeFromRight {
+  from {
+    opacity: 0;
+    transform: translate(-50px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate(0, 50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animated {
+  animation-duration: 0.3s;
+}
+
+.fadeInUp {
+  animation-name: fadeInUp;
+}
+
+.fadeFromLeft {
+  animation-name: fadeFromLeft;
+}
+
+.fadeFromRight {
+  animation-name: fadeFromRight;
+}
+
+.card-title-area {
+  display: flex;
+  margin-bottom: 10px;
+
+  .card-icon-background {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #ebfbee;
+    vertical-align: text-top;
+
+    .card-icon {
+      margin: 12px;
+    }
+  }
+
+  .card-title {
+    font-family: $font-full;
+    font-size: 20px;
+    text-align: left;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.2;
+    color: #292b32;
+    margin: 15px 10px 25px 20px;
+  }
+}
+
+.wrap-form-card {
+  margin-bottom: 10px;
+
+  .wrap-content {
+    text-align: left;
+
+    .input-label {
+      line-height: 40px;
+      font-family: Roboto;
+      font-size: 16px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      letter-spacing: normal;
+      text-align: left;
+      color: #5e676d;
+    }
+
+    .input-label,
+    .text-box,
+    .switch-box {
+      line-height: 40px;
+    }
+  }
+}
+
+.internet-card,
+.lan-card,
+.wireless-card,
+.info-card,
+.connected-device-card {
+  .el-tabs__header {
+    margin: 0 0 22px;
+  }
+
+  .wrap-form {
+    text-align: initial;
+    padding-bottom: 28px;
+
+    .wrap-label {
+      margin-bottom: 6px;
+
+      span {
+        width: 300px;
+        height: 25px;
+        font-family: Roboto;
+        font-size: 16px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        letter-spacing: normal;
+        text-align: left;
+        color: #5e676d;
+      }
+    }
+
+    .wrap-input {
+      width: 300px;
+      font-family: Roboto;
+      font-size: 16px;
+      font-weight: 600;
+      font-style: normal;
+      font-stretch: normal;
+      letter-spacing: normal;
+      text-align: left;
+      color: #000000;
+    }
+  }
+}
+
+.el-tooltip__popper {
+  &.primary {
+    color: inherit;
+    // custom style
+  }
+}
+
+span.text {
+  line-height: 40px;
+}

@@ -1,0 +1,14 @@
+{
+    "error_message_common_require": "This field is requrired!",
+    "login_id_placeholder": "Enter the user name",
+    "login_pw_placeholder": "Enter the password",
+    "register_username_placeholder": "Enter the description",
+    "custom_invalid_length": "That too short!",
+    "common_text_login": "Login",
+    "common_text_register": "Sign Up",
+    "common_text_fogot": "Fogot password",
+    "common_text_back_to_login": "Back",
+    "common_profile_edit": "Edit",
+    "common_profile_profile": "Profile",
+    "common_profile_logout": "Logout"
+}

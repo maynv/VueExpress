@@ -1,0 +1,49 @@
+.el-input {
+  input.el-input__inner {
+    border-radius: 3px;
+    border: solid 1px $color-border-normal;
+    background-color: #ffffff;
+    font-family: $font-full;
+    font-size: $font-size-input;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 3.13;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000000;
+    &:active,
+    &:focus {
+      border: solid 1px $color-border-focus;
+    }
+  }
+  &.error-input {
+    input.el-input__inner {
+      border-color: $color-border-error;
+      &:hover {
+        border-color: $color-border-error;
+      }
+      &:focus {
+        border-color: $color-border-focus;
+      }
+    }
+  }
+  &.is-disabled {
+    input.el-input__inner {
+      color: $common-inactive;
+      border-color: $color-border-normal;
+      &:hover {
+        border-color: $color-border-normal;
+      }
+      &:focus {
+        border-color: $color-border-normal;
+      }
+    }
+  }
+}
+.el-select .el-input__inner:focus {
+  border-color: $color-border-focus !important;
+}
+.el-select .el-input.is-focus .el-input__inner {
+  border-color: $color-border-focus !important;
+}

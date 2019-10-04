@@ -1,0 +1,50 @@
+$font-full: Roboto,
+Arial,
+Helvetica,
+san-serif;
+
+/*Backgound color*/
+$app-background-color: #f1f2f5;
+$sidebar-background-color: #f1f2f5;
+$selected-item-background-color: #f1f2f5;
+$disabled-background-color: #ffffff;
+$disabled-background-input-color: #F5F7FA;
+/*Color*/
+$active-toggle-color: #51cf66;
+$app-text-color: #2c3e50;
+$color-text-error: #f56c6c;
+$color-border-input-error: #f56c6c;
+$common-active: #51cf66;
+$common-inactive: #909399;
+$color-placeholder: #c0c4cc;
+$color-border-error: #f56c6c;
+$color-border-focus: #409eff;
+$color-border-normal: #c9cbcd;
+$color-disabled-text: #c9cbcd;
+/* Width */
+$nav-bar-width: 320px;
+$side-bar-width: 320px;
+$help-width: 30%;
+$help-width-m: 220px;
+$min-width: 360px;
+/* Height*/
+
+$header-height: 44px;
+$footer-height: 60px;
+$menu-item-height: 56px;
+
+/* font */
+$font-size-input: 15px;
+$font-size-text: 16px;
+$font-size-error-text: 13px;
+/* Z-index */
+$z-index-dialog: 2019;
+$z-index-navbar: 1999;
+$z-index-navbar-m: 2020;
+$z-index-help-m: 2020;
+$z-index-side-bar: 2011;
+$z-index-action-bar: 2002;
+$z-index-background: 2010;
+$z-index-select: 2020;
+$z-index-error-dialog: 2023;
+$z-index-loading: 9999;
