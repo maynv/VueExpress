@@ -14,6 +14,9 @@ const auth = {
     },
     user_info(postData, options) {
         return request("post", "/user", postData, options);
+    },
+    user_info_detail(postData, options) {
+        return request("post", "/user_detail", postData, options);
     }
 };
 

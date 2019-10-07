@@ -3,7 +3,7 @@
     <el-container class="app-container">
       <!-- <el-aside class="app-nav-bar" v-if="TOKEN">
         <Nav />
-      </el-aside> -->
+      </el-aside>-->
       <el-container class="main-container">
         <el-header class="app-header" v-if="TOKEN" :key="TOKEN">
           <Header />
@@ -96,6 +96,7 @@ body {
       position: relative;
       .app-header {
         padding: 0px;
+        width: 100%;
         &.none-display {
           height: 0px !important;
         }

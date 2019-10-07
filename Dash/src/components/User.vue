@@ -65,13 +65,13 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { FETCH_USER } from "@/stores/types/actions";
-import { USER } from "@/stores/types/getters";
+import { FETCH_USER_DETAIL } from "@/stores/types/actions";
+import { USER_DETAIL } from "@/stores/types/getters";
 import Utils from "@/common/utils";
-import { COOKIE_USER } from "@/common/constants";
+import { COOKIE_USER, APP_URL } from "@/common/constants";
 import ExService from "@/api/ExService";
 const DEFAULT_URL_IMG =
-  "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png";
+  "https://img.maximummedia.ie/joe_ie/eyJkYXRhIjoie1widXJsXCI6XCJodHRwOlxcXC9cXFwvbWVkaWEtam9lLm1heGltdW1tZWRpYS5pZS5zMy5hbWF6b25hd3MuY29tXFxcL3dwLWNvbnRlbnRcXFwvdXBsb2Fkc1xcXC8yMDE2XFxcLzA4XFxcLzE2MTAzMzQ1XFxcL0hlbnJ5LUNhdmlsbC1TdXBlcm1hbi5qcGdcIixcIndpZHRoXCI6NzY3LFwiaGVpZ2h0XCI6NDMxLFwiZGVmYXVsdFwiOlwiaHR0cHM6XFxcL1xcXC93d3cuam9lLmllXFxcL2Fzc2V0c1xcXC9pbWFnZXNcXFwvam9lXFxcL25vLWltYWdlLnBuZz9pZD0yNjRhMmRiZTM3MGYyYzY3NWZjZFwiLFwib3B0aW9uc1wiOltdfSIsImhhc2giOiJjMDFjM2Y1Mzc4YmE5ZGIyODQ3NThkOWUyMDY0ZjljMjBmZGFkMDBmIn0=/henry-cavill-superman.jpg";
 export default {
   name: "User",
   data() {
@@ -87,16 +87,16 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({ USER })
+    ...mapGetters({ USER_DETAIL })
   },
   created() {
     this.fetchData();
   },
   methods: {
-    ...mapActions({ FETCH_USER }),
+    ...mapActions({ FETCH_USER_DETAIL }),
     initData() {
-      if (this.USER) {
-        this.cdata = Utils.copyObject(this.USER);
+      if (this.USER_DETAIL) {
+        this.cdata = Utils.copyObject(this.USER_DETAIL);
       }
     },
     fetchData() {
@@ -105,19 +105,26 @@ export default {
       const postData = ExService.auth_ex.auth_user({
         email: email
       });
-
-      $q.push(
-        this.FETCH_USER({
-          postData: postData
-        })
-      );
-      Promise.all($q).then(() => {
+      if (!this.USER_DETAIL) {
+        $q.push(
+          this.FETCH_USER_DETAIL({
+            postData: postData
+          })
+        );
+      }
+      if ($q.length) {
+        Promise.all($q).then(() => {
+          this.initData();
+        });
+      } else {
         this.initData();
-      });
+      }
     },
-    onProfile() {},
+    onProfile() {
+      this.$router.push(APP_URL.PROFILE.url);
+    },
     onLogout() {
-      this.$router.push("/");
+      this.$router.push(APP_URL.LOGIN.url);
     },
     handleCommand(cmd) {
       if (cmd === null || cmd === undefined) {

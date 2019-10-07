@@ -8,3 +8,4 @@ export const HIDE_LOADING = "hideLoading";
 
 // User
 export const FETCH_USER = "fetchUser";
+export const FETCH_USER_DETAIL = "fetchUserDetail";

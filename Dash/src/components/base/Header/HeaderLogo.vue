@@ -1,14 +1,12 @@
 <template>
-  <div>
-    
-  </div>
+  <div></div>
 </template>
 
 <script>
 export default {
-  name: "UserProfile"
+  name: "HeaderLogo"
 };
 </script>
 
-<style lang="scss">
+<style>
 </style>

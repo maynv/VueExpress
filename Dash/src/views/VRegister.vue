@@ -84,6 +84,7 @@ import { ValidationObserver } from "vee-validate";
 import InputValue from "@/components/shared/inputs/InputValue";
 import InputPassword from "@/components/shared/inputs/InputPassword";
 import ExService from "@/api/ExService";
+import { APP_URL } from "@/common/constants";
 export default {
   name: "Register",
   components: {
@@ -105,10 +106,12 @@ export default {
       });
       this.REGISTER({
         postData: postData
+      }).then(() => {
+        this.$router.push(APP_URL.LOGIN.url);
       });
     },
     onBack() {
-      this.$router.push("/");
+      this.$router.push(APP_URL.LOGIN.url);
     }
   }
 };

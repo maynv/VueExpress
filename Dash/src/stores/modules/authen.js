@@ -2,28 +2,33 @@ import api from '@/api';
 import {
   ABOUT,
   TOKEN,
-  USER
+  USER,
+  USER_DETAIL
 } from '../types/getters';
 import {
   SET_ABOUT,
   SET_USER,
-  SET_TOKEN
+  SET_TOKEN,
+  SET_USER_DETAIL
 } from '../types/mutations';
 import {
   FETCH_ABOUT,
   LOGIN,
   LOGOUT,
   REGISTER,
-  FETCH_USER
+  FETCH_USER,
+  FETCH_USER_DETAIL
 } from '../types/actions';
 import Utils from "@/common/utils";
 import {
   COOKIE_ACCESS_TOKEN, COOKIE_USER
 } from "@/common/constants";
+
 const state = {
   user: null,
   about: null,
-  token: Utils.getCookie(COOKIE_ACCESS_TOKEN)
+  token: Utils.getCookie(COOKIE_ACCESS_TOKEN),
+  userDetail: null
 };
 
 const getters = {
@@ -36,6 +41,9 @@ const getters = {
   },
   [USER](state) {
     return state.user;
+  },
+  [USER_DETAIL](state) {
+    return state.userDetail;
   }
 };
 
@@ -43,7 +51,7 @@ const actions = {
   [FETCH_ABOUT]({ commit }, { options }) {
     return api.AuthenticationService.about.get_about(options).then(data => commit(SET_ABOUT, data));
   },
-  [LOGIN]({ commit }, { postData, options }) {
+  [LOGIN]({ commit, dispatch }, { postData, options }) {
     return api.AuthenticationService.auth.login(postData, options).then(data => {
       if (data) {
         if (data.token) {
@@ -52,7 +60,9 @@ const actions = {
         }
         if (data.userInfo) {
           Utils.setCookie(COOKIE_USER, data.userInfo.email);
+          commit(SET_USER_DETAIL, data.userInfo)
         }
+
       }
     });
   },
@@ -68,6 +78,9 @@ const actions = {
   [FETCH_USER]({ commit }, { postData, options }) {
     return api.AuthenticationService.auth.user_info(postData, options).then(data => commit(SET_USER, data));
   },
+  [FETCH_USER_DETAIL]({ commit }, { postData, options }) {
+    return api.AuthenticationService.auth.user_info_detail(postData, options).then(data => commit(SET_USER_DETAIL, data));
+  },
 };
 const mutations = {
   [SET_ABOUT](state, about) {
@@ -78,7 +91,10 @@ const mutations = {
   },
   [SET_USER](state, user) {
     state.user = user;
-  }
+  },
+  [SET_USER_DETAIL](state, userDetail) {
+    state.userDetail = userDetail;
+  },
 };
 
 export default {

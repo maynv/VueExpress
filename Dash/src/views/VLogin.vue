@@ -63,6 +63,7 @@ import { LOGIN } from "@/stores/types/actions";
 import { ValidationObserver } from "vee-validate";
 import InputValue from "@/components/shared/inputs/InputValue";
 import InputPassword from "@/components/shared/inputs/InputPassword";
+import { APP_URL } from "@/common/constants";
 import ExService from "@/api/ExService";
 export default {
   name: "Login",
@@ -86,14 +87,14 @@ export default {
         postData: postData
       })
         .then(() => {
-          this.$router.push("/home");
+          this.$router.push(APP_URL.DASHBOARD.url);
         })
         .catch(err => {
           this.error = err.data.err;
         });
     },
     onRegister() {
-      this.$router.push("/register");
+      this.$router.push(APP_URL.REGISTER.url);
     }
   }
 };
