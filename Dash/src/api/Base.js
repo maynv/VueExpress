@@ -22,37 +22,37 @@ let domain = "http://localhost:8888";
 //     }
 // }
 const onUnauthorized = () => {
-    router.push("/");
+  router.push("/");
 };
 
 export const request = (method, url, data, options) => {
-    let mainUrl = domain + VERSION + url;
-    let acceptUnAuth = false;
-    let requestParams = {};
-    let showLoading = true;
-    let vHasFullResponse = false;
-    let contentType = null;
-    // if (options !== undefined && typeof options === "object") {
+  let mainUrl = domain + VERSION + url;
+  let acceptUnAuth = false;
+  let requestParams = {};
+  let showLoading = true;
+  let vHasFullResponse = false;
+  let contentType = null;
+  if (options !== undefined && typeof options === "object") {
     //     //isUrl: Do not use /api/v1
     //     if (options.isUrl) {
     //         mainUrl = domain + url;
     //     }
     //     //acceptUnAuth: Accept Unauthorized status
-    //     if (options.acceptUnAuth) {
-    //         acceptUnAuth = options.acceptUnAuth;
-    //     }
+    if (options.acceptUnAuth) {
+      acceptUnAuth = options.acceptUnAuth;
+    }
     //     //isPrivacy: Call API of Privacy Policy
     //     // if (options.isPrivacy) {
     //     //     mainUrl = domainPrivacy + VERSION + url;
     //     // }
     //     // showLoading: Show/Hide Loading dialog
-    //     if (
-    //         options.showLoading !== null &&
-    //         options.showLoading !== undefined &&
-    //         options.showLoading === false
-    //     ) {
-    //         showLoading = options.showLoading;
-    //     }
+    if (
+      options.showLoading !== null &&
+      options.showLoading !== undefined &&
+      options.showLoading === false
+    ) {
+      showLoading = options.showLoading;
+    }
     //     // queryOptions: Call API with special query params
     //     if (options.queryOptions && typeof options.queryOptions === "object") {
     //         requestParams = options.queryOptions;
@@ -63,26 +63,26 @@ export const request = (method, url, data, options) => {
     //     if (options.contentType) {
     //         contentType = options.contentType;
     //     }
-    // }
-    return Vue.axios({
-        method: method,
-        url: mainUrl,
-        data: data,
-        params: requestParams,
-        showLoading: showLoading,
-        acceptUnAuth: acceptUnAuth,
-        contentType: contentType
+  }
+  return Vue.axios({
+    method: method,
+    url: mainUrl,
+    data: data,
+    params: requestParams,
+    showLoading: showLoading,
+    acceptUnAuth: acceptUnAuth,
+    contentType: contentType
+  })
+    .then(result => {
+      if (vHasFullResponse) {
+        return result;
+      }
+      return result.data;
     })
-        .then(result => {
-            if (vHasFullResponse) {
-                return result;
-            }
-            return result.data;
-        })
-        .catch(result => {
-            const { status } = result.response;
+    .catch(result => {
+      const { status } = result.response;
 
-            if (status === UNAUTHORIZED && !acceptUnAuth) onUnauthorized();
-            throw result.response;
-        });
+      if (status === UNAUTHORIZED && !acceptUnAuth) onUnauthorized();
+      throw result.response;
+    });
 };

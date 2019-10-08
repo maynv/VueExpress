@@ -358,6 +358,9 @@ export default {
   }
   .input--inner {
     width: 100%;
+    textarea {
+      max-height: 150px;
+    }
     .el-input {
       &.error-input {
         input {

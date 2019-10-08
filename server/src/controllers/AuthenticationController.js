@@ -95,5 +95,80 @@ module.exports = {
         err: err
       })
     }
+  },
+  async updateUserDetail(req, res) {
+    const { email } = req.body
+    try {
+      const user = await UserDetail.update(req.body, {
+        where: { email: email }
+      })
+      if (user) {
+        res.status(200).send(req.body)
+      } else {
+        return res.status(403).send({
+          err: "Invalid Token"
+        })
+      }
+    } catch (err) {
+      res.status(403).send({
+        err: err
+      })
+    }
+  },
+  async userValidate(req, res) {
+    const { email, password } = req.body
+    try {
+      const user = await User.findOne(req.body, {
+        where: { email: email }
+      })
+      const userJS = user.toJSON()
+      if (userJS && userJS.password === password) {
+        res.status(200).send(req.body)
+      } else {
+        return res.status(500).send({
+          err: "Password incorrect"
+        })
+      }
+    } catch (err) {
+      res.status(500).send({
+        err: err
+      })
+    }
+  },
+  async userChangePassword(req, res) {
+    const { email, oldPassword, newPassword, reNewPassword } = req.body
+    const newRecord = {
+      email: email,
+      password: newPassword
+    }
+    try {
+      const vUser = await User.findOne(req.body, {
+        where: { email: email }
+      })
+      if (vUser && oldPassword === vUser.toJSON().password && newPassword === reNewPassword) {
+        const user = await User.update(newRecord, {
+          where: { email: email }
+        })
+        await UserDetail.update(newRecord, {
+          where: { email: email }
+        })
+        if (user) {
+          res.status(200).send(req.body)
+        } else {
+          res.status(500).send({
+            err: "Unkown error"
+          })
+        }
+      } else {
+        res.status(500).send({
+          err: "Invalid Password"
+        })
+      }
+
+    } catch (err) {
+      res.status(500).send({
+        err: err
+      })
+    }
   }
 }

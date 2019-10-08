@@ -4,7 +4,34 @@
       <el-col :span="10" class="user-profile-detail-wrap">
         <UserProfileDetail />
       </el-col>
-      <el-col :span="14" class="user-profile-action-wrap">Action</el-col>
+      <el-col :span="14" class="user-profile-action-wrap">
+        <el-row class="item-understruction">
+          <el-col>
+            <div>
+              <span>Action</span>
+            </div>
+            <div>
+              <img src="@/assets/images/ic_underconstruction.png" alt />
+            </div>
+            <div>
+              <span>Under Construction</span>
+            </div>
+          </el-col>
+        </el-row>
+        <el-row class="item-understruction">
+          <el-col>
+            <div>
+              <span>Chart</span>
+            </div>
+            <div>
+              <img src="@/assets/images/ic_underconstruction.png" alt />
+            </div>
+            <div>
+              <span>Under Construction</span>
+            </div>
+          </el-col>
+        </el-row>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -59,6 +86,9 @@ export default {
     height: 600px;
   }
   .user-profile-action-wrap {
+    .item-understruction {
+      padding-top: 30px;
+    }
   }
 }
 </style>

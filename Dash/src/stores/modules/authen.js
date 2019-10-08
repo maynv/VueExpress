@@ -17,7 +17,10 @@ import {
   LOGOUT,
   REGISTER,
   FETCH_USER,
-  FETCH_USER_DETAIL
+  FETCH_USER_DETAIL,
+  UPDATE_USER_DETAIL,
+  USER_VALIDATE,
+  USER_CHANGE_PASSWORD
 } from '../types/actions';
 import Utils from "@/common/utils";
 import {
@@ -81,6 +84,15 @@ const actions = {
   [FETCH_USER_DETAIL]({ commit }, { postData, options }) {
     return api.AuthenticationService.auth.user_info_detail(postData, options).then(data => commit(SET_USER_DETAIL, data));
   },
+  [UPDATE_USER_DETAIL]({ commit }, { postData, options }) {
+    return api.AuthenticationService.auth.user_info_update(postData, options).then(() => commit(SET_USER_DETAIL, null));
+  },
+  [USER_VALIDATE]({ commit }, { postData, options }) {
+    return api.AuthenticationService.auth.user_validate(postData, options).then(() => { });
+  },
+  [USER_CHANGE_PASSWORD]({ commit }, { postData, options }) {
+    return api.AuthenticationService.auth.user_changePassword(postData, options).then(() => { });
+  }
 };
 const mutations = {
   [SET_ABOUT](state, about) {

@@ -3,13 +3,13 @@
     <el-row>
       <el-col :span="12">
         <el-row>
-          <el-col :span="4">
+          <el-col class="header-logo-container" :span="4">
             <div @click.prevent="() => onClickToDashBoard()">
               <el-row class="header-logo-wrap" type="flex" justify="start">
                 <el-col class="header-main-menu-wrap">
                   <div class="header-main-menu">
                     <img src="@/assets/images/ic_home.png" alt />
-                    <span class="name">DASH</span>
+                    <span class="name">Spaceless</span>
                   </div>
                 </el-col>
               </el-row>
@@ -20,7 +20,9 @@
           </el-col>
         </el-row>
       </el-col>
-      <el-col :span="8" class="header-search-wrap">Search</el-col>
+      <el-col :span="8" class="header-search-wrap">
+        <Search />
+      </el-col>
       <el-col :span="4">
         <User />
       </el-col>
@@ -30,10 +32,11 @@
 
 <script>
 import User from "@/components/User";
+import Search from "@/components/base/Header/Search";
 import { APP_URL } from "@/common/constants";
 export default {
   name: "Header",
-  components: { User },
+  components: { User, Search },
   methods: {
     onClickToDashBoard() {
       this.$router.push(APP_URL.DASHBOARD.url);
@@ -47,13 +50,16 @@ export default {
   // background-color: rgba(67, 196, 132, 0.63);
   height: $header-height;
   max-height: $header-height;
-  border-bottom: 1px solid rgba(47, 50, 207, 0.63);
+  border-bottom: 1px solid rgba(206, 206, 206, 0.63);
+  .header-logo-container {
+    min-width: 150px;
+  }
   .header-logo-wrap {
     height: $header-height;
     .header-main-menu-wrap {
       text-align: left;
       background-color: rgba(236, 237, 243, 0.63);
-      border-right: 1px solid rgba(47, 50, 207, 0.63);
+      border-right: 1px solid rgba(206, 206, 206, 0.63);
       border-radius: 1px;
       padding-left: 20px;
       &:hover {
@@ -77,8 +83,8 @@ export default {
     }
   }
   .header-search-wrap {
-    height: $header-height;
-    background-color: chartreuse;
+    height: 44px;
+    padding-top: 2px;
   }
 }
 </style>

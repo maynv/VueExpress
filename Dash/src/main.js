@@ -30,6 +30,8 @@ Vue.use(VeeValidate, {
   validity: false
 });
 /* eslint-disable no-new */
+
+Vue.prototype.$eventBus = new Vue();
 new Vue({
   router: router,
   store: store,

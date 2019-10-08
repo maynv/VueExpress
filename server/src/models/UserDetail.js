@@ -22,6 +22,9 @@ module.exports = (Sequelize, DataTypes) => {
     },
     gender: {
       type: DataTypes.STRING, allowNull: true
+    },
+    description: {
+      type: DataTypes.TEXT, allowNull: true
     }
   })
   return UserDetail

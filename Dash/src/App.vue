@@ -12,6 +12,17 @@
           <router-view />
         </el-main>
       </el-container>
+      <ConfirmDialog
+        v-if="confirmConfig.show"
+        :config="confirmConfig.config"
+        @on-confirm="payload => onConfirm(true, payload)"
+        @on-cancel="() => onConfirm(false)"
+      />
+      <CompleteDialog
+        v-if="completeConfig.show"
+        :config="completeConfig.config"
+        @on-confirm="payload => onComplete(true, payload)"
+      />
     </el-container>
   </div>
 </template>
@@ -23,18 +34,41 @@ import { TOKEN, LOADING } from "@/stores/types/getters";
 import { VALID_RULES } from "@/common/valid-rules";
 import Nav from "@/components/Nav";
 import Header from "@/components/Header";
+import ConfirmDialog from "@/components/base/AppDialogs/ConfirmDialog";
+import CompleteDialog from "@/components/base/AppDialogs/CompleteDialog";
+import Utils from "@/common/utils";
+
+import {
+  EVENT_BUS,
+  CONFIRM_DIALOG_TYPE,
+  COMPLETE_DIALOG_TYPE
+} from "@/common/constants";
 
 export default {
   name: "App",
-  components: { Nav, Header },
+  components: { Nav, Header, ConfirmDialog, CompleteDialog },
   data() {
-    return {};
+    return {
+      confirmConfig: {
+        show: false,
+        config: {
+          type: CONFIRM_DIALOG_TYPE.WARNING
+        }
+      },
+      completeConfig: {
+        show: false,
+        config: {
+          type: COMPLETE_DIALOG_TYPE.COMPLETE
+        }
+      }
+    };
   },
   computed: {
     ...mapGetters({ TOKEN, LOADING })
   },
   mounted() {
     this.initVeeValidateRules();
+    this.initEventBus();
   },
   created() {
     this.$router.beforeEach((to, from, next) => {
@@ -67,6 +101,60 @@ export default {
           validate: item.validate
         });
       });
+    },
+    resetAppDialog() {
+      this.completeConfig.show = false;
+      this.confirmConfig.show = false;
+    },
+    initEventBus() {
+      this.$eventBus.$on(EVENT_BUS.OPEN_CONFIRM, params => {
+        if (params) {
+          this.resetAppDialog();
+          this.confirmConfig.show = true;
+          this.confirmConfig.config = Utils.copyObject(params);
+        } else {
+          this.confirmConfig.show = false;
+          this.confirmConfig.config = {
+            type: CONFIRM_DIALOG_TYPE.WARNING
+          };
+        }
+      });
+      this.$eventBus.$on(EVENT_BUS.OPEN_COMPLETE, params => {
+        if (params) {
+          this.resetAppDialog();
+          this.completeConfig.show = true;
+          this.completeConfig.config = Utils.copyObject(params);
+        } else {
+          this.completeConfig.show = false;
+          this.completeConfig.config = {
+            type: COMPLETE_DIALOG_TYPE.COMPLETE
+          };
+        }
+      });
+      // this.$eventBus.$on(EVENT_BUS.OPEN_ERROR_CASE, params => {
+      //   if (params) {
+      //     this.resetAppDialog();
+      //     this.errorConfig.show = true;
+      //     this.errorConfig.config = Utils.copyObject(params);
+      //   } else {
+      //     this.errorConfig.show = false;
+      //     this.errorConfig.config = {
+      //       type: ERROR_DIALOG_TYPE.ERROR
+      //     };
+      //   }
+      // });
+    },
+    onConfirm(confirm, payload) {
+      this.confirmConfig.show = false;
+      this.$eventBus.$emit(EVENT_BUS.CLOSE_CONFIRM, confirm, payload);
+    },
+    onComplete(confirm, payload) {
+      this.completeConfig.show = false;
+      this.$eventBus.$emit(EVENT_BUS.CLOSE_COMPLETE, confirm, payload);
+    },
+    onErrorCase(confirm, payload) {
+      this.errorConfig.show = false;
+      this.$eventBus.$emit(EVENT_BUS.CLOSE_ERROR_CASE, confirm, payload);
     }
   }
 };
